@@ -1,6 +1,7 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
+const axios = require('axios')
 const port = process.env.PORT || 3000
 const app = express()
 
@@ -41,8 +42,8 @@ app.get('/test', async(req, res) => {
 // route to /
 app.get('/', (req, res) => {    
     res.render('home', {
-        title: 'TGIFF Home',
-        name: 'Professor Eipp',
+        title: 'Artdrop',
+        name: 'Ethan Maxson',
     })
 })
 
@@ -50,8 +51,53 @@ app.get('/', (req, res) => {
 // route to /about
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'Meadowlark About',
+        title: 'Artdrop About',
     })
+})
+
+app.get('/apinasa', (req, res) => { 
+    axios.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
+    .then(response => {
+        console.log(response.data)
+        console.log(response.data.url)
+        console.log(response.data.explanation)
+
+        res.end(response.data.explanation)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+    
+})
+
+app.get('/apidad', async(req, res) => {
+    const options = {
+    method: 'GET',
+    url: 'https://dad-jokes.p.rapidapi.com/random/joke',
+    headers: {
+        'X-RapidAPI-Key': '0a05d4f6e2msh5da4800a566796dp1a0aacjsnd8490e08088f',
+        'X-RapidAPI-Host': 'dad-jokes.p.rapidapi.com'
+            }
+};
+
+    try {
+	    const response = await axios.request(options);
+	    //console.log(response.data);
+
+        //console.log(response.data.body)
+        const obj = response.data.body
+        
+        const setup = obj.setup
+        const punchline = obj.punchline
+
+        console.log(setup)
+        console.log("\n" + punchline)
+
+        res.end(JSON.stringify(response.data))
+    } catch (error) {
+	    console.error(error);
+    }
+
 })
 
 // custom 500
