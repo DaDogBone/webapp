@@ -4,7 +4,7 @@ const path = require('path')
 const axios = require('axios')
 const port = process.env.PORT || 3000
 const app = express()
-const axios = require('axios')
+
 
 app.engine('handlebars', expressHandlebars.engine())
 app.set('view engine', 'handlebars')
@@ -95,7 +95,6 @@ app.get('/', (req, res) => {
 // route to /about
 app.get('/about', (req, res) => {
     res.render('about', {
-        
         title: 'Artdrop About',
 
     })
