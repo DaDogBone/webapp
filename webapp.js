@@ -86,11 +86,7 @@ app.get('/api_dadjokes', async(req, res) => {
 // route to /
 app.get('/', (req, res) => {    
     res.render('home', {
-<<<<<<< HEAD
         title: 'Artdrop',
-=======
-        title: 'ArtDrop Home',
->>>>>>> 04bf683679bd6a7251474133e4a849dcfef4affe
         name: 'Ethan Maxson',
     })
 })
@@ -99,11 +95,9 @@ app.get('/', (req, res) => {
 // route to /about
 app.get('/about', (req, res) => {
     res.render('about', {
-<<<<<<< HEAD
+        
         title: 'Artdrop About',
-=======
-        title: 'ArtDrop About',
->>>>>>> 04bf683679bd6a7251474133e4a849dcfef4affe
+
     })
 })
 
