@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="/styles/header.css">
+        <link rel="stylesheet" href="/styles/main.css">
+        <script src="/scripts/fun.js" defer></script>
         <title>
             {{title}}
         </title>
     </head>
     <body>
-        <nav>
+        <nav id="headernav">
             {{> header}}
         </nav>
-        {{{ body }}}
-        {{> footer}}
+        <main>
+            {{{ body }}}
+        </main>
+        <footer>
+            {{> footer}}
+        </footer>
     </body>
 </html>
