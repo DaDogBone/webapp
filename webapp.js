@@ -4,6 +4,7 @@ const path = require('path')
 const axios = require('axios')
 const port = process.env.PORT || 3000
 const app = express()
+const axios = require('axios')
 
 app.engine('handlebars', expressHandlebars.engine())
 app.set('view engine', 'handlebars')
@@ -39,10 +40,57 @@ app.get('/test', async(req, res) => {
     }
 })
 
+app.get('/api_dadjokes', async(req, res) => {
+
+    const options = {
+      method: 'GET',
+      url: 'https://dad-jokes.p.rapidapi.com/random/joke',
+      headers: {
+        'X-RapidAPI-Key': '08e2971577mshdbbba3e33d8403dp17467bjsn54589f154ad5',
+        'X-RapidAPI-Host': 'dad-jokes.p.rapidapi.com'
+      }
+    }
+    
+    try {
+        const response = await axios.request(options)
+
+        //console.log(response.data);
+        //console.log(response.data.body)
+
+        const obj = response.data.body[0]
+        const setup = obj.setup
+        const punchline = obj.punchline
+
+        //console.log(response.data.body[0].setup)
+        //console.log(response.data.body[0].punchline)
+        //console.log(setup)
+        //console.log(punchline)
+
+        res.type('html')
+        res.status(200)
+        const msg = '<h3>' + setup + '</h3>' + '<p><p><p>'
+            + '<h4>' + punchline + '</h4>'
+
+        // res.end(JSON.stringify(response.data))
+        res.end(msg)
+
+    } catch (error) {
+        console.error(error);
+    }
+
+
+
+})
+
+
 // route to /
 app.get('/', (req, res) => {    
     res.render('home', {
+<<<<<<< HEAD
         title: 'Artdrop',
+=======
+        title: 'ArtDrop Home',
+>>>>>>> 04bf683679bd6a7251474133e4a849dcfef4affe
         name: 'Ethan Maxson',
     })
 })
@@ -51,7 +99,11 @@ app.get('/', (req, res) => {
 // route to /about
 app.get('/about', (req, res) => {
     res.render('about', {
+<<<<<<< HEAD
         title: 'Artdrop About',
+=======
+        title: 'ArtDrop About',
+>>>>>>> 04bf683679bd6a7251474133e4a849dcfef4affe
     })
 })
 
