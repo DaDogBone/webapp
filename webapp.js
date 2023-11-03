@@ -41,8 +41,8 @@ app.get('/test', async(req, res) => {
 // route to /
 app.get('/', (req, res) => {    
     res.render('home', {
-        title: 'TGIFF Home',
-        name: 'Professor Eipp',
+        title: 'ArtDrop Home',
+        name: 'Ethan Maxson',
     })
 })
 
@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 // route to /about
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'Meadowlark About',
+        title: 'ArtDrop About',
     })
 })
 
