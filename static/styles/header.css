@@ -1,7 +1,16 @@
-#headernav
-header{
-    background-color: cornsilk;
+#headernav header{
+    background-color: brown;
     color: black;
     font-family: 'Courier New', Courier, monospace;
     font-size: 200%;
+}
+
+#headernav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+#headernav ul li a {
+    color: whitesmoke;
+    font-size: 18px;
 }

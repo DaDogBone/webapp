@@ -40,6 +40,9 @@ app.get('/test', async(req, res) => {
     }
 })
 
+app.get('/hands', async(req,res) => {
+})
+
 app.get('/api_dadjokes', async(req, res) => {
 
     const options = {

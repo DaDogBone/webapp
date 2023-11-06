@@ -3,7 +3,8 @@
     <head>
         <link rel="stylesheet" href="/styles/header.css">
         <link rel="stylesheet" href="/styles/main.css">
-        <script src="/scripts/fun.js" defer></script>
+        <link rel="stlyesheet" href="/styles/footer.css"
+        <script src="/scripts/fun.js" defer> </script>
         <title>
             {{title}}
         </title>
@@ -12,11 +13,17 @@
         <nav id="headernav">
             {{> header}}
         </nav>
-        <main>
+
+        <main id="mainbody">
             {{{ body }}}
         </main>
-        <footer>
+
+        <nav id="footernav">
+            <span>
             {{> footer}}
-        </footer>
+            </span>
+        </nav>
+
+
     </body>
 </html>
