@@ -1,8 +1,8 @@
 function fun(){
     console.log('made it into fun')
-    document.getElementById("result").innerHTML = "fun"
+    document.getElementById("result").innerHTML = "I am not having fun"
 }
 
 function nofun(){
-    document.getElementById("result").innerHTML = "no fun at all!"
+    document.getElementById("result").innerHTML = "I am not having fun"
 }

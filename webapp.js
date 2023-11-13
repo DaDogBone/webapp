@@ -40,9 +40,13 @@ app.get('/test', async(req, res) => {
     }
 })
 
-app.get('/hands', async(req,res) => {
+app.post('/accountcreated', async(req,res) =>{
+    app.render('accountcreated')
 })
 
+app.get('/hands', async(req,res) => {
+})
+/*
 app.get('/api_dadjokes', async(req, res) => {
 
     const options = {
@@ -85,7 +89,7 @@ app.get('/api_dadjokes', async(req, res) => {
 
 })
 
-
+*/
 // route to /
 app.get('/', (req, res) => {    
     res.render('home', {
@@ -102,7 +106,12 @@ app.get('/about', (req, res) => {
 
     })
 })
+app.get('/signup', (req, res) => {
+    res.render('signup')
+    title: 'Sign Up'
 
+})
+/*
 app.get('/apinasa', (req, res) => { 
     axios.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
     .then(response => {
@@ -147,7 +156,7 @@ app.get('/apidad', async(req, res) => {
     }
 
 })
-
+*/
 // custom 500
 app.use((err, req, res, next) => {
     console.error(err.message)
