@@ -5,12 +5,30 @@ const axios = require('axios')
 const port = process.env.PORT || 3000
 const app = express()
 
+const cookieParser = require('cookie-parser')
+const expressSession = require('express-session')
+const { credentials } = require('./config')
 
 app.engine('handlebars', expressHandlebars.engine())
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'static')));
 
+
+//order of next two lines matter! cookie parser must come first 
+app.use(cookieParser(credentials.cookie_secret))
+app.use(expressSession({
+
+    resave: false,
+    saveUnintitalized: false,
+    secret: credentials.cookie_secret,
+
+}))
+//resave forces session to be saved back to the store even if
+//      the request wasnt modifed
+//saveUninitalized: true causes unitalzied sessions to be saved to the store 
+//       even when not modified
+//secret: the key used tp sogn the cookie of the session id
 
 // establish a connection to a mariadb database
 const mariadb = require('mariadb')
@@ -23,28 +41,28 @@ const pool = mariadb.createPool({
 
 
 // route to test my database setup
-app.get('/test', async(req, res) => {
+app.get('/test', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
         const dbtest = await conn.query('select 1 as val')
         console.log(dbtest)
-       
+
         res.type('text/plain')
         res.status(200)
         res.send('made it to route: /test')
-    } catch(err) {
+    } catch (err) {
         console.log(err)
     } finally {
         if (conn) return conn.end();
     }
 })
 
-app.post('/accountcreated', async(req,res) =>{
+app.post('/accountcreated', async (req, res) => {
     app.render('accountcreated')
 })
 
-app.get('/hands', async(req,res) => {
+app.get('/hands', async (req, res) => {
 })
 /*
 app.get('/api_dadjokes', async(req, res) => {
@@ -91,13 +109,56 @@ app.get('/api_dadjokes', async(req, res) => {
 
 */
 // route to /
-app.get('/', (req, res) => {    
+app.get('/', (req, res) => {
+
+    console.log
+        ('snacking on some cookies')
+    res.cookie
+        ('monster', 'ohh nom nom nom',
+        {secure: true, maxAge: 720000})
+    res.cookie
+        ('signed_monster', 'signed much munch munch', {signed: true},
+        {signed: true, secure: true, maxAge: 720000})
+    //console.log
+      //  ('done with cookies')
+
+
+    //secure: only sends over https
+    //signed: if tampered with, rejected by server, restored to origonal value
+    // maxAge: how long clinet keeps cookies before deleting it
+    //      if ommited, it is denied when browser is closed
+
+
+    req.session.username = 'DogBone'
+    req.session.password = 'saveoursouls'
+    const color = req.session.colorScheme || 'dark'
+    console.log('session color: ' + color)
+
     res.render('home', {
         title: 'Artdrop',
         name: 'Ethan Maxson',
     })
 })
 
+app.get('/cookies', (req, res) => {
+
+    const mv = 'monster: ' + res.cookies.monster + '<br>'
+    const smv = 'signed_moster: ' + req.cookies.signed_monster + '<br>'
+
+    let values = mv +smv
+    values += req.session.username + ' :: ' + req.session.password
+
+    //delete cookies
+    res.clearCookie('monster')
+    res.clearCookie('signed_monster')
+
+    //clear session data
+    delete req.session.username
+    delete req.session.password
+
+    res.type ('html')
+    res.end(values)
+})
 
 // route to /about
 app.get('/about', (req, res) => {
@@ -138,8 +199,8 @@ app.get('/apidad', async(req, res) => {
 };
 
     try {
-	    const response = await axios.request(options);
-	    //console.log(response.data);
+        const response = await axios.request(options);
+        //console.log(response.data);
 
         //console.log(response.data.body)
         const obj = response.data.body
@@ -152,7 +213,7 @@ app.get('/apidad', async(req, res) => {
 
         res.end(JSON.stringify(response.data))
     } catch (error) {
-	    console.error(error);
+        console.error(error);
     }
 
 })
@@ -167,7 +228,7 @@ app.use((err, req, res, next) => {
 
 
 // custom 404
-app.use((req, res)=> {
+app.use((req, res) => {
     res.type('text/plain')
     //console.log(res.get('Content-Type'))
     res.status(404)
@@ -178,5 +239,5 @@ app.use((req, res)=> {
 // start the server listening for requests...
 app.listen(port, () => {
     console.log(`Running on http://localhost:${port} ` +
-    `Press Ctrl-C to terminate.`)
+        `Press Ctrl-C to terminate.`)
 })
