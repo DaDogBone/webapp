@@ -5,7 +5,13 @@
     font-size: 200%;
     text-align: center;
 }
-
+#headernav p {
+    display: inside;
+    text-align: left;
+    font-size: larger;
+    color: whitesmoke;
+    text-decoration:underline;
+}
 #headernav ul li {
     display: inline;
     margin-left: 20px;
