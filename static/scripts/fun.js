@@ -4,5 +4,5 @@ function fun(){
 }
 
 function nofun(){
-    document.getElementById("result").innerHTML = "I am not having fun"
+    document.getElementById("result").innerHTML = "I am still not having fun"
 }

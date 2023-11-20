@@ -61,50 +61,8 @@ app.get('/test', async (req, res) => {
 app.post('/accountcreated', async (req, res) => {
     app.render('accountcreated')
 })
-
-app.get('/hands', async (req, res) => {
-})
 /*
-app.get('/api_dadjokes', async(req, res) => {
-
-    const options = {
-      method: 'GET',
-      url: 'https://dad-jokes.p.rapidapi.com/random/joke',
-      headers: {
-        'X-RapidAPI-Key': '08e2971577mshdbbba3e33d8403dp17467bjsn54589f154ad5',
-        'X-RapidAPI-Host': 'dad-jokes.p.rapidapi.com'
-      }
-    }
-    
-    try {
-        const response = await axios.request(options)
-
-        //console.log(response.data);
-        //console.log(response.data.body)
-
-        const obj = response.data.body[0]
-        const setup = obj.setup
-        const punchline = obj.punchline
-
-        //console.log(response.data.body[0].setup)
-        //console.log(response.data.body[0].punchline)
-        //console.log(setup)
-        //console.log(punchline)
-
-        res.type('html')
-        res.status(200)
-        const msg = '<h3>' + setup + '</h3>' + '<p><p><p>'
-            + '<h4>' + punchline + '</h4>'
-
-        // res.end(JSON.stringify(response.data))
-        res.end(msg)
-
-    } catch (error) {
-        console.error(error);
-    }
-
-
-
+app.get('/hands', async (req, res) => {
 })
 
 */
@@ -134,7 +92,7 @@ app.get('/', (req, res) => {
     const color = req.session.colorScheme || 'dark'
     console.log('session color: ' + color)
 
-    res.render('home', {
+    res.render('login', {
         title: 'Artdrop',
         name: 'Ethan Maxson',
     })
@@ -168,9 +126,29 @@ app.get('/about', (req, res) => {
     })
 })
 app.get('/signup', (req, res) => {
-    res.render('signup')
-    title: 'Sign Up'
+    res.render('signup', {
+    title: 'Sign Up',
+    })
+})
 
+app.post('/home', async(req,res) =>{
+    res.render('home')
+    title:'home'
+})
+app.post('/post', async(req,res) =>{
+    res.render('post',{
+    title:'DropArt'
+})
+})
+app.post('/signedup', async(req,res) =>{
+    const username=req.body.user
+    const userpw=req.body.userpassw
+
+    res.render('signedup', {
+        title:'Welcome!!!',
+        user: username,
+        userpassw: password,
+    })
 })
 /*
 app.get('/apinasa', (req, res) => { 
