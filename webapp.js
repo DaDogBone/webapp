@@ -15,6 +15,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'static')));
 
 
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+)
+
+
 //order of next two lines matter! cookie parser must come first 
 app.use(cookieParser(credentials.cookie_secret))
 app.use(expressSession({
@@ -56,11 +63,9 @@ app.get('/test', async (req, res) => {
     } finally {
         if (conn) return conn.end();
     }
+   
 })
 
-app.post('/accountcreated', async (req, res) => {
-    app.render('accountcreated')
-})
 /*
 app.get('/hands', async (req, res) => {
 })
@@ -125,10 +130,28 @@ app.get('/about', (req, res) => {
 
     })
 })
-app.get('/signup', (req, res) => {
-    res.render('signup', {
-    title: 'Sign Up',
+
+app.get('/register', (req, res) => {
+
+    res.render('register', {
+        title: 'Sign Up',
     })
+
+})
+
+app.post('/addnewuser', (req, res) => {
+
+    // console.log(req)
+    const usern =req.body.username
+    const userpassw =req.body.userpw
+    console.log(usern + userpassw)
+
+    // do database work here
+
+    res.render('register', {
+        title: 'Sign Up',
+    })
+
 })
 
 app.post('/home', async(req,res) =>{
@@ -140,14 +163,15 @@ app.post('/post', async(req,res) =>{
     title:'DropArt'
 })
 })
-app.post('/signedup', async(req,res) =>{
-    const username=req.body.user
-    const userpw=req.body.userpassw
-
-    res.render('signedup', {
+app.post('/login', async(req,res) =>{
+    console.log(req)
+    const usern =req.body.username
+    const userpassw =req.body.userpw
+    
+    res.render('register', {
         title:'Welcome!!!',
-        user: username,
-        userpassw: password,
+        username: usern,
+        userpw: userpassw,
     })
 })
 /*
