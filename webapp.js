@@ -100,6 +100,7 @@ app.get('/', (req, res) => {
     res.render('login', {
         title: 'Artdrop',
         name: 'Ethan Maxson',
+        loginHeader: true,
     })
 })
 
@@ -127,6 +128,7 @@ app.get('/cookies', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about', {
         title: 'Artdrop About',
+        loginHeader: true,
 
     })
 })
@@ -135,6 +137,7 @@ app.get('/register', (req, res) => {
 
     res.render('register', {
         title: 'Sign Up',
+        loginHeader: true,
     })
 
 })

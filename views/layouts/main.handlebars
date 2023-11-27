@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="/styles/header.css">
+        <link rel="stylesheet" href="/styles/homeheader.css">
         <link rel="stylesheet" href="/styles/main.css">
         <link rel="stlyesheet" href="/styles/footer.css">
         <a href="#first"><i class="far fa-user"></i></a>
@@ -15,7 +16,14 @@
     </head>
     <body>
         <nav id="headernav">
-        {{> header}} 
+        {{#if loginHeader}}
+            {{> header}} 
+        {{else}}
+            {{> homeheader}} 
+        {{/if}}
+        
+
+        
         </nav>
 
         <main id="mainbody">
