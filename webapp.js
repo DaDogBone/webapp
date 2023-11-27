@@ -148,21 +148,23 @@ app.post('/addnewuser', (req, res) => {
 
     // do database work here
 
-    res.render('register', {
-        title: 'Sign Up',
+    res.render('register',{
+        title: 'Sign Up'
     })
-
 })
 
 app.post('/home', async(req,res) =>{
-    res.render('home')
+    res.render('home',{
     title:'home'
+    })
 })
-app.post('/post', async(req,res) =>{
-    res.render('post',{
-    title:'DropArt'
+
+app.get('/postimage',async(req,res) =>{
+    res.render('postimage',{
+    title:'ArtDrop'
+    })
 })
-})
+
 app.post('/login', async(req,res) =>{
     console.log(req)
     const usern =req.body.username
