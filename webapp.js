@@ -5,9 +5,12 @@ const axios = require('axios')
 const port = process.env.PORT || 3000
 const app = express()
 
+const { credentials } = require('./config')
+const { requiresAuth } = require('express-openid-connect');
+
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
-const { credentials } = require('./config')
+
 
 app.engine('handlebars', expressHandlebars.engine())
 app.set('view engine', 'handlebars')
@@ -23,7 +26,10 @@ app.use(
 
 
 //order of next two lines matter! cookie parser must come first 
-app.use(cookieParser(credentials.cookie_secret))
+
+// app.use(cookieParser(credentials.cookie_secret))
+
+/*
 app.use(expressSession({
 
     resave: false,
@@ -31,6 +37,36 @@ app.use(expressSession({
     secret: credentials.cookie_secret,
 
 }))
+*/
+
+
+////////////////////////////////////////////////////
+
+const { auth } = require('express-openid-connect');
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: 'a long, randomly-generated string stored in env',
+  baseURL: 'http://localhost:3000',
+  clientID: 'dT6WPWxPkjh8LlEECZBF3YKQjkFWIFjf',
+  issuerBaseURL: 'https://dev-4flb1xfw0zmfcbxo.us.auth0.com'
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
+
+// req.isAuthenticated is provided from the auth router
+app.get('/', (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+});
+
+    
+/////////////////////////////////////////////////////////////
+
+
+
+
 //resave forces session to be saved back to the store even if
 //      the request wasnt modifed
 //saveUninitalized: true causes unitalzied sessions to be saved to the store 
@@ -63,7 +99,7 @@ app.get('/test', async (req, res) => {
     } finally {
         if (conn) return conn.end();
     }
-   
+
 })
 
 /*
@@ -72,18 +108,19 @@ app.get('/hands', async (req, res) => {
 
 */
 // route to /
+/*
 app.get('/', (req, res) => {
 
     console.log
         ('snacking on some cookies')
     res.cookie
         ('monster', 'ohh nom nom nom',
-        {secure: true, maxAge: 720000})
+            { secure: true, maxAge: 720000 })
     res.cookie
-        ('signed_monster', 'signed much munch munch', {signed: true},
-        {signed: true, secure: true, maxAge: 720000})
+        ('signed_monster', 'signed much munch munch', { signed: true },
+            { signed: true, secure: true, maxAge: 720000 })
     //console.log
-      //  ('done with cookies')
+    //  ('done with cookies')
 
 
     //secure: only sends over https
@@ -105,12 +142,15 @@ app.get('/', (req, res) => {
     })
 })
 
+*/
+
+/*
 app.get('/cookies', (req, res) => {
 
     const mv = 'monster: ' + res.cookies.monster + '<br>'
     const smv = 'signed_moster: ' + req.cookies.signed_monster + '<br>'
 
-    let values = mv +smv
+    let values = mv + smv
     values += req.session.username + ' :: ' + req.session.password
 
     //delete cookies
@@ -121,9 +161,11 @@ app.get('/cookies', (req, res) => {
     delete req.session.username
     delete req.session.password
 
-    res.type ('html')
+    res.type('html')
     res.end(values)
 })
+*/
+
 
 // route to /about
 app.get('/about', (req, res) => {
@@ -134,6 +176,7 @@ app.get('/about', (req, res) => {
     })
 })
 
+
 app.get('/register', (req, res) => {
 
     res.render('register', {
@@ -143,43 +186,59 @@ app.get('/register', (req, res) => {
 
 })
 
+/*
 app.post('/addnewuser', (req, res) => {
 
     // console.log(req)
-    const usern =req.body.username
-    const userpassw =req.body.userpw
+    const usern = req.body.username
+    const userpassw = req.body.userpw
     console.log(usern + userpassw)
 
     // do database work here
 
-    res.render('register',{
+    res.render('register', {
         title: 'Sign Up'
     })
 })
+*/
 
-app.post('/home', async(req,res) =>{
-    res.render('home',{
-    title:'home'
+app.get('/home', async (req, res) => {
+
+    if (!req.oidc.isAuthenticated()) {
+        // redirect to /login route
+    }
+
+    res.render('home', {
+        title: 'home',
+        loggedin: req.oidc.isAuthenticated(),
+
     })
 })
 
-app.get('/postimage',async(req,res) =>{
-    res.render('postimage',{
-    title:'ArtDrop'
+app.get('/postimage', async (req, res) => {
+    res.render('postimage', {
+        title: 'ArtDrop'
     })
 })
 
-app.post('/login', async(req,res) =>{
-    console.log(req)
-    const usern =req.body.username
-    const userpassw =req.body.userpw
+
     
+/*
+app.post('/login', async (req, res) => {
+    console.log(req)
+    const usern = req.body.username
+    const userpassw = req.body.userpw
+
     res.render('register', {
-        title:'Welcome!!!',
+        title: 'Welcome!!!',
         username: usern,
         userpw: userpassw,
     })
 })
+
+*/
+
+
 /*
 app.get('/apinasa', (req, res) => { 
     axios.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
