@@ -14,10 +14,16 @@
         </title>
     </head>
     <body>
+        
+        {{#if loginheader}}
         <nav id="headernav">
         {{> header}} 
+    {{ else }}
+        <nav id="homeheadernav">
+        {{> homeheader}} 
+        {{/if }}
+        
         </nav>
-
         <main id="mainbody">
             {{{ body }}}
         </main>

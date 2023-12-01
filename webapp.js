@@ -100,6 +100,7 @@ app.get('/', (req, res) => {
     res.render('login', {
         title: 'Artdrop',
         name: 'Ethan Maxson',
+        loginheader: true
     })
 })
 
