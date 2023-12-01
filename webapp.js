@@ -101,6 +101,7 @@ app.get('/', (req, res) => {
         title: 'Artdrop',
         name: 'Ethan Maxson',
         loginHeader: true,
+
     })
 })
 
