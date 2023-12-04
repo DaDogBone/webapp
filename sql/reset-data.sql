@@ -1,4 +1,4 @@
-USE week6db;
+USE artDrop;
 
 /* SHOW DATABASES; */
 

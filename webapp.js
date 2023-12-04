@@ -58,7 +58,14 @@ app.use(auth(config));
 
 // req.isAuthenticated is provided from the auth router
 app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+ 
+    //res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+    
+    if(req.oidc.isAuthenticated())
+        res.redirect('/home')
+    else
+        res.redirect('/login')
+
 });
 
     
@@ -221,6 +228,11 @@ app.get('/postimage', async (req, res) => {
     })
 })
 
+app.post('/finishpost', async (req,res) => {
+    res.render('home', {
+        title: 'Home'
+    })
+})
 
     
 /*
