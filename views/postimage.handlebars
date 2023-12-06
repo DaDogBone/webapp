@@ -3,12 +3,64 @@
     <h1>Lets get posting</h1>
 
     <div class="input-div">
-    <form action="/">
-        <label for="img">Select image:</label>
-        <input type="file" id="img" name="img" accept="image/*">
-        <input type="submit">
-    </form>
-</div>
+    <p>Drag & Drop images here or <span class="browse">Browse</span></p>
+    <input type="file" class="file" multiple="multiple" accept="image/png, image/jpeg, image/jpg">
 </div>
 
+
+<form id="saved-form">
+    <div class="header">
+        <h3>Saved In Server</h3>
+        <button type="submit">Delete</button>
+    </div>
+    <div class="saved-div"></div>
+</form>
+
+<form id="queued-form">
+    <div class="header">
+        <h3>Queued In Frontend</h3>
+        <button type="submit">Upload</button>
+    </div>
+    <div class="queued-div"></div>
+</form>
+</div>
+
+</main>
+
+
+<script>
+    let queuedImagesArray =[],
+    savedForm = document.querySelector("#saved-form"),
+    queuedForm = document.querySelector("#queued-form"),
+    savedDiv = document.querySelector(".saved-div"),
+    queuedDiv = document.querySelector(".queued-div"),
+    inputDiv = document.querySelector(".input-div"),
+    input = document.querySelector(".input-div input"),
+    serverMessage = document.querySelector(".server-message"),
+    deleteImages = []
+
+    // saved in server images
+    //queued in frontend images
+    input.addEventListener("change", () => {
+        const files = input.files
+        console.log(files)
+    })
+
+    inputDiv.addEventListener('drop',(e) => {
+        e.preventDefault()
+        const files = e.dataTransfer.files
+        console.log(files)
+    })
+
+    function displayQueuedImages(){
+        let images =""
+        queuedImagesArray.forEach((image,index) => {
+            images += ` <div class="image">
+                      <img src="${URL.createObjectURL(image)}" alt="image">
+                       <span onclick="deleteQueuedImage(${index})">&times;</span>
+                       </div>`
+        })
+    queuedDiv.innerHTML = images
+    }
+</script>
 {{!https://www.youtube.com/watch?v=EaBSeNSc-2c}}
