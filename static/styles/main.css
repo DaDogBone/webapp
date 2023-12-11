@@ -5,9 +5,15 @@
 }
 
 div.home {
-    text-align: left;
     font-size: 200%;
-    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+}
+.home .image {
+
 }
 
 div.login {

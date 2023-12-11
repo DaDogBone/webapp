@@ -8,20 +8,15 @@
     </div>
 
 
-    <form id="saved-form">
-        <div class="header">
-            <h3>Saved In Server</h3>
-            <button type="submit">Delete</button>
-        </div>
-        <div class="saved-div"></div>
-    </form>
 
     <form id="queued-form">
         <div class="header">
-            <h3>Queued In Frontend</h3>
+            <h3>Confirm Post?</h3>
             <button type="submit">Upload</button>
         </div>
-        <div class="queued-div"></div>
+        <div class="queued-div"><p>Saved Imaged</p>
+        </div>
+        
     </form>
 </div>
 
@@ -44,7 +39,7 @@
     function displayQueuedImages() {
         let images = ""
         queuedImagesArray.forEach((image, index) => {
-            images += ` <div class="image">
+            images +=  `<div class="image">
                       <img src="${URL.createObjectURL(image)}" alt="image">
                        <span onclick="deleteQueuedImage(${index})">&times;</span>
                        </div>`

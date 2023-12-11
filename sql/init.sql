@@ -14,3 +14,4 @@ GRANT ALL PRIVILEGES ON 'artDrop'.* TO 'week6user'@localhost IDENTIFIED BY 'week
 FLUSH PRIVILEGES;
 
 SHOW GRANTS FOR 'week6user'@localhost;
+
