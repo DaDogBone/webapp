@@ -173,7 +173,9 @@ app.get('/cookies', (req, res) => {
 })
 */
 
-
+app.post('/home', (req,res) =>{
+    
+})
 // route to /about
 app.get('/about', (req, res) => {
     res.render('about', {
