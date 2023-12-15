@@ -174,7 +174,10 @@ app.get('/cookies', (req, res) => {
 */
 
 app.post('/home', (req,res) =>{
-    
+    res.render("home", {
+    title: 'posted',
+
+})
 })
 // route to /about
 app.get('/about', (req, res) => {

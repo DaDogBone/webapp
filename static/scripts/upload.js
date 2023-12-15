@@ -9,7 +9,7 @@ function imgUpload() {
 
         const reader = new FileReader();
         ReadableStream.onload = function (e) {
-            imageArray.push(e.target.result);
+            images.push(e.target.result);
 
             displayImages();
         };
@@ -32,5 +32,5 @@ function displayImages() {
         imgElement.src = dataURL;
         imageContainer.appendChild(imgElement);
     });
-
+console.log('made it here');
 }

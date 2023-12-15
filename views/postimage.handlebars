@@ -4,7 +4,7 @@
 
     <div class="input-div">
         <p>Drag & Drop images here or <span class="browse">Browse</span></p>
-        <input type="file" id="userImage" class="file" multiple="multiple" accept="image/png, image/jpeg, image/jpg">
+        <input formaction="/views/home.handlebars" type="file" id="userImage" class="file" multiple="multiple" accept="image/png, image/jpeg, image/jpg">
     </div>
 
 
@@ -21,9 +21,12 @@
 </div>
 
 </main>
-
-
+<div id="imageContainer"></div>
+<script src="../static/scripts/upload.js"></script>
 <script>
+  
+
+
     let queuedImagesArray = [],
         savedForm = document.querySelector("#saved-form"),
         queuedForm = document.querySelector("#queued-form"),
@@ -88,6 +91,6 @@
         method: "POST",
         body: formData
       })
-
+    }
 </script>
 {{!https://www.youtube.com/watch?v=EaBSeNSc-2c}}
