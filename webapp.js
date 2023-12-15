@@ -2,7 +2,7 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
 const axios = require('axios')
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 const app = express()
 
 const { credentials } = require('./config')
@@ -223,7 +223,7 @@ app.get('/home', async (req, res) => {
 })
 
 app.get('/postimage', async (req, res) => {
-    res.render('home', {
+    res.render('postimage', {
         title: 'ArtDrop'
     })
 })

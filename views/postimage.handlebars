@@ -2,14 +2,21 @@
 <div class="upload">
     <h1>Lets get posting</h1>
 
-    <div class="input-div">
-        <p>Drag & Drop images here or <span class="browse">Browse</span></p>
-        <input formaction="finishpost.handlebars" type="file" id="userImage" class="file" multiple="multiple" accept="image/png, image/jpeg, image/jpg">
-    </div>
+    
+        
+      <form>
+      <div class="input-div">
+      <p>Drag & Drop images here or <span class="browse">Browse</span></p>
+            <input type="file" id="userImage" class="file" multiple="multiple" accept="image/png, image/jpeg, image/jpg" >
+             
+    </form>
+      {{!  <p>Drag & Drop images here or <span class="browse">Browse</span></p>
+        <input type="file" id="userImage" class="file" multiple="multiple" accept="image/png, image/jpeg, image/jpg">
+    }}</div>
 
 
 
-    <form id="queued-form">
+    <form action="/finishpost" id="queued-form" method="post">
         <div class="header">
             <h3>Confirm Post?</h3>
             <button type="submit">Upload</button>
