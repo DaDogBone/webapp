@@ -223,7 +223,7 @@ app.get('/home', async (req, res) => {
 })
 
 app.get('/postimage', async (req, res) => {
-    res.render('postimage', {
+    res.render('home', {
         title: 'ArtDrop'
     })
 })
