@@ -19,10 +19,10 @@
         
     </form>
 </div>
-
+<script src="../static/scripts/upload.js"></script>
 </main>
 <div id="imageContainer"></div>
-<script src="../static/scripts/upload.js"></script>
+
 <script>
   
 
@@ -87,10 +87,11 @@
         formData.append(`file[${index}]`, image)
       })
 
-      fetch("upload", {
+     /* fetch("upload", {
         method: "POST",
         body: formData
-      })
-    }
+      })*/
+    } 
+    
 </script>
 {{!https://www.youtube.com/watch?v=EaBSeNSc-2c}}

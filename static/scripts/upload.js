@@ -1,5 +1,6 @@
 const images = [];
-
+console.log(imgUpload)
+console.log('made it here');
 function imgUpload() {
     const input = document.getElementById('userImage');
 
@@ -32,5 +33,5 @@ function displayImages() {
         imgElement.src = dataURL;
         imageContainer.appendChild(imgElement);
     });
-console.log('made it here');
+
 }
